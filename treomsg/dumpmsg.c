@@ -221,7 +221,10 @@ sprint(unsigned char *buf, int len)
 		case 0:
 			break;
 		default:
-			cprint(c);
+            // cfoust: 06/13/20
+            // I would rather have the original bytes.
+			putchar(c);
+			/*cprint(c);*/
 			break;
 		}
 	}
@@ -501,7 +504,11 @@ treomsg_t *process_message(unsigned char *data,
 				;
 			if(cp < &p[len]) {
 				if(g_debug) printf(" phone=\"%s\"", cp);
-				mp->phone = cp;
+                // For some reason in my case I had to skip a byte when
+                // the message was outgoing to have the correct phone number.
+                // Not sure why this is.
+                // - cfoust
+				mp->phone = cp + (mp->inoutflag == TREO_OUTGOING ? 1 : 0);
 				cp += strlen(cp);
 				cp++;
 				if(*cp) {
