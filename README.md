@@ -6,6 +6,8 @@ your old Palm/Treo phone, this repository is for you.
 Using the Palm backup and sync program (or an SD card) you should be able to
 extract your `Messages Database.pdb`, which contains all of your text messages.
 
+## prc
+
 The `.pdb` format is akin to PalmOS's filesystem. The `prc/` directory in this
 repository contains a program (`par`) that can break these `.pdb` files into
 records, which you can think of like individual files. In the case of text
@@ -17,6 +19,8 @@ Example:
 ```
 Warning: this makes a LOT of files if you have a lot of texts. These records
 are still hard to read though. That's where the `treomsg/` directory comes in.
+
+## treomsg
 
 The `.pdr` files the `par` utility creates can then be extracted using
 `dumpmsg` inside of `treomsg/`.
@@ -30,3 +34,15 @@ This dumps the contents of the (interpreted) `.pdr` file to stdout.
 The source code for `treomsg/` at least has been modified from its original
 form to fix bugs. You can find the original code for both `treomsg/` and `prc/`
 in `src-archives/`.
+
+## raw-to-json.py
+
+The `dumpmsg` program has a `-r` argument that dumps out a "raw" version of
+each message. I wrote a simple program that parses this "raw" format into
+JSON.
+
+Example:
+```bash
+./treomsg/dumpmsg -r *.pdr > out.txt
+./raw-to-json.py out.txt out.json
+```
