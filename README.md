@@ -8,7 +8,7 @@ extract your `Messages Database.pdb`, which contains all of your text messages.
 
 The `.pdb` format is akin to PalmOS's filesystem. The `prc/` directory in this
 repository contains a program (`par`) that can break these `.pdb` files into
-record, which you can think of like individual files. In the case of text
+records, which you can think of like individual files. In the case of text
 messages, each message is a record.
 
 Example:
